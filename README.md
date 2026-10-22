@@ -97,4 +97,26 @@ The README documents the application architecture, technologies used and deploym
 
 The repository also provides the application source code required to understand how the portfolio is built and prepared for deployment.
 
-Additional architecture diagrams and deployment documentation can
+Additional architecture diagrams and deployment documentation can be maintained in the `docs/` directory.
+
+## ⚠️ Project Context
+
+This is a personal project developed to gain practical experience with Angular and AWS cloud infrastructure.
+
+The application serves as a portfolio website while providing an opportunity to work with production builds, object storage, content delivery and deployment updates.
+
+The project focuses on learning and demonstrating cloud deployment concepts rather than implementing a complex application backend.
+
+## From Systems Administration to Cloud
+
+This project represents a step in my transition from traditional systems administration toward Cloud infrastructure and architecture.
+
+My previous experience with operating systems, infrastructure management, troubleshooting and enterprise environments provides the foundation for understanding the operational aspects of cloud services.
+
+Deploying this application introduced practical experience with AWS hosting, content delivery, HTTPS and cache management, extending that foundation into cloud-based infrastructure.
+
+It also provides a starting point for future improvements involving deployment automation and CI/CD.
+
+---
+
+Year: 2026 · Focus: Cloud Infrastructure · AWS · Angular · Amazon S3 · Amazon CloudFront · Web Application Deployment
