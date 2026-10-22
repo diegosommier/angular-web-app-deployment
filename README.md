@@ -18,7 +18,7 @@ The project combines frontend development with cloud deployment, content deliver
 
 The application is built with Angular and deployed as a static web application. Amazon S3 stores the compiled application files, while Amazon CloudFront distributes the content to visitors.
 
-![Angular Web App Deployment Architecture](assets/architecture-diagram.png)
+![Angular Web App Deployment Architecture](assets/angular-web-app-deployment.png)
 
 ### Architecture Components
 
