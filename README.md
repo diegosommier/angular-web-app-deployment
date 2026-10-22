@@ -1,144 +1,139 @@
 # Angular Web App Deployment
 
-> A personal portfolio web application built with Angular and deployed on AWS using Amazon S3 and Amazon CloudFront.
+Deployment of my personal portfolio website using AWS services, with a focus on cloud infrastructure, content delivery, DNS management and HTTPS.
 
-🌐 **Live Website:** [https://diegosommier.com](https://diegosommier.com)
+🌐 **Live website:** [https://diegosommier.com](https://diegosommier.com)
 
 ## 📖 Overview
 
-This project focuses on building and deploying a personal portfolio website using Angular and AWS cloud services.
+This project covers the deployment of my personal portfolio website using a cloud-based architecture on AWS. The application was built with Angular and deployed as a static website, using Amazon S3 for storage and Amazon CloudFront for content delivery.
 
-The application showcases my professional background, systems administration experience and ongoing transition toward Cloud infrastructure and architecture.
+Amazon Route 53 manages DNS resolution for the custom domain, while AWS Certificate Manager (ACM) provides the SSL/TLS certificate required to enable secure HTTPS access.
 
-The main objective was to deploy a working web application from local development to a publicly accessible website, using AWS services for storage, content delivery, DNS resolution and HTTPS.
+The project demonstrates how AWS services can be combined to publish a web application securely and make it accessible through a custom domain.
 
-The project combines frontend development with cloud deployment, content delivery, certificate management and cache invalidation.
+### 🎓 Training Context
+
+This project was developed as part of the **Cloud Computing and DevOps Bootcamp by [BlockStellart](https://learn.blockstellart.com/bootcamp/)**. It applies concepts covered during the training to the deployment of an Angular web application and my personal portfolio.
 
 ## 🏗️ Architecture
 
-The application is built with Angular and deployed as a static web application. Amazon S3 stores the compiled application files, while Amazon CloudFront distributes the content to visitors.
-
 ![Angular Web App Deployment Architecture](assets/angular-web-app-deployment.png)
 
-### Architecture Components
+The deployment uses the following AWS services:
 
-- **Amazon Route 53:** Resolves the custom domain `diegosommier.com` to the CloudFront distribution.
-- **Amazon CloudFront:** Acts as the content delivery layer, handling HTTPS requests and caching static assets.
-- **AWS Certificate Manager (ACM):** Provides the SSL/TLS certificate associated with CloudFront.
-- **Amazon S3:** Stores the compiled Angular production build and serves as the CloudFront origin.
-- **Angular:** Provides the frontend application, compiled into static HTML, JavaScript, CSS and other assets.
+- **Amazon S3:** Stores the compiled Angular application files.
+- **Amazon CloudFront:** Distributes website content through AWS edge locations.
+- **Amazon Route 53:** Manages DNS records for the custom domain.
+- **AWS Certificate Manager (ACM):** Provides the SSL/TLS certificate used to enable HTTPS.
 
 ### Request Flow
 
-1. The user accesses `https://diegosommier.com`.
-2. Amazon Route 53 resolves the domain name to the CloudFront distribution.
-3. Amazon CloudFront receives the HTTPS request using the associated certificate managed through ACM.
-4. If the requested content is not available in the CloudFront cache, CloudFront retrieves it from the Amazon S3 origin.
-5. CloudFront delivers the application content to the user over HTTPS.
+1. A visitor accesses `diegosommier.com`.
+2. Amazon Route 53 resolves the domain to the CloudFront distribution.
+3. Amazon CloudFront serves the website content over HTTPS.
+4. The compiled Angular application files are stored in Amazon S3 and used to deliver the website.
 
 ## 🔧 Infrastructure & Implementation
 
-### Angular Application
+### 1. Angular Application Build
 
-The portfolio was developed using Angular and TypeScript, with HTML, CSS and JavaScript supporting the frontend.
-
-The application is developed and tested locally before generating a production build using Angular CLI.
-
-The build process compiles the application and generates the static files required for deployment.
-
-### Amazon S3
-
-Amazon S3 is used to store the compiled frontend application.
-
-The production build is uploaded to the bucket, preserving the directory structure and ensuring that `index.html` and its referenced assets are available to CloudFront.
-
-This separates the application source code from the files served in the deployed environment.
-
-### Amazon CloudFront
-
-Amazon CloudFront distributes the website content through a content delivery network.
-
-The distribution provides HTTPS delivery and caching for static resources.
-
-CloudFront cache invalidations are used when necessary after updates to ensure that the latest version of the website is served.
-
-### DNS & HTTPS
-
-Amazon Route 53 manages DNS resolution for the custom domain, while AWS Certificate Manager provides the TLS certificate used by CloudFront.
-
-This enables access to the portfolio through its custom domain over HTTPS.
-
-## 🛠️ Technologies & Tools
-
-| Area | Technologies |
-|---|---|
-| Frontend Framework | Angular |
-| Programming Language | TypeScript |
-| Web Technologies | HTML, CSS, JavaScript |
-| Cloud Storage | Amazon S3 |
-| Content Delivery Network | Amazon CloudFront |
-| DNS Management | Amazon Route 53 |
-| Certificate Management | AWS Certificate Manager (ACM) |
-| Version Control | Git, GitHub |
-
-## 🚀 Deployment
-
-The deployment workflow consists of the following steps:
-
-1. Developing and testing the application locally.
-2. Generating the Angular production build.
-3. Uploading the compiled output to Amazon S3.
-4. Serving the application through Amazon CloudFront.
-5. Invalidating cached content when required after updates.
-
-### Build the Application
-
-Install the project dependencies:
-
-```bash
-npm install
-```
-
-Start the local development server:
-
-```bash
-npx ng serve
-```
-
-Generate the production build:
+The Angular application was compiled into static files suitable for deployment.
 
 ```bash
 npx ng build
 ```
 
-Angular generates the production files in the configured output directory under `dist/`.
+The generated output is located in the `dist/` directory. Depending on the Angular build configuration, the deployable files may be inside a nested `browser/` directory.
 
-Only the compiled output is deployed to Amazon S3, rather than the original TypeScript source files.
+### 2. Amazon S3
+
+An S3 bucket was used to store the compiled application files.
+
+The deployment process involves uploading the generated build output rather than the original Angular source code.
+
+### 3. Amazon CloudFront
+
+A CloudFront distribution was configured to deliver the website content through AWS's content delivery network.
+
+CloudFront improves content delivery performance and supports HTTPS access through the configured custom domain and certificate.
+
+### 4. AWS Certificate Manager (ACM)
+
+An SSL/TLS certificate was requested and validated through AWS Certificate Manager for the custom domain.
+
+The certificate enables encrypted HTTPS connections between visitors and the CloudFront distribution.
+
+### 5. Amazon Route 53
+
+Route 53 was used to manage the DNS records required to connect the custom domain to the CloudFront distribution.
+
+DNS configuration and certificate validation were important steps in making the website accessible through the custom domain.
+
+### 6. Cache Invalidation
+
+After deploying updated application files, a CloudFront cache invalidation was used to ensure that visitors received the latest version of the website.
+
+```text
+/*
+```
+
+Invalidating the relevant cached content helped resolve an issue where the previous version of the website continued to appear after deployment.
+
+## 🛠️ Technologies & Tools
+
+- **Cloud provider:** Amazon Web Services (AWS)
+- **Frontend framework:** Angular
+- **Programming language:** TypeScript
+- **Object storage:** Amazon S3
+- **Content delivery network:** Amazon CloudFront
+- **DNS management:** Amazon Route 53
+- **SSL/TLS certificates:** AWS Certificate Manager (ACM)
+- **Version control:** Git and GitHub
+
+## 🚀 Deployment
+
+The deployment workflow consists of the following steps:
+
+1. Develop and test the Angular application locally.
+2. Build the application into static production files.
+3. Upload the generated files to the Amazon S3 bucket.
+4. Configure CloudFront to deliver the application content.
+5. Configure the custom domain through Route 53.
+6. Validate and associate the SSL/TLS certificate with CloudFront.
+7. Invalidate the CloudFront cache after updates when required.
+8. Verify that the website is accessible through the custom domain over HTTPS.
 
 ## 📚 Documentation
 
-The repository includes the Angular application source code, this README and the architecture diagram located at `assets/architecture-diagram.png`.
+Official AWS documentation:
 
-The diagram provides a visual overview of the AWS services involved and their relationships within the deployment architecture.
+- [Amazon S3](https://docs.aws.amazon.com/s3/)
+- [Amazon CloudFront](https://docs.aws.amazon.com/cloudfront/)
+- [Amazon Route 53](https://docs.aws.amazon.com/route53/)
+- [AWS Certificate Manager](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)
+
+Additional resources:
+
+- [Angular documentation](https://angular.dev/)
+- [BlockStellart — Cloud Computing and DevOps Bootcamp](https://learn.blockstellart.com/bootcamp/)
 
 ## ⚠️ Project Context
 
-This is a personal project developed to gain practical experience with Angular and AWS cloud infrastructure.
+This is a personal learning project developed as part of my transition from systems administration towards cloud infrastructure and architecture.
 
-It provides hands-on experience with frontend production builds, cloud storage, content delivery, DNS resolution, HTTPS and deployment updates.
+The deployment provided practical experience with AWS services, static web application hosting, DNS configuration, HTTPS, content delivery and cache management.
 
-The project is intended as a learning and demonstration environment rather than a business-critical application architecture.
+The project is intended to document my learning journey and demonstrate the practical application of cloud concepts.
 
-## From Systems Administration to Cloud
+## ☁️ From Systems Administration to Cloud
 
-This project represents a step in my transition from traditional systems administration toward Cloud infrastructure and architecture.
+With a background in systems administration, I am expanding my skills towards cloud infrastructure, automation and architecture.
 
-My experience in operating systems, infrastructure management, troubleshooting and enterprise environments provides a foundation for understanding the operational aspects of cloud services.
-
-Deploying this application extends that experience into AWS, combining frontend deployment with cloud storage, content delivery, HTTPS and cache management.
-
-It also provides a foundation for future improvements involving deployment automation and CI/CD.
+Projects like this portfolio deployment allow me to apply my existing infrastructure knowledge in AWS and build a practical foundation for more advanced cloud projects.
 
 ---
 
-**Year:** 2026 · **Focus:** Cloud Infrastructure · AWS · Angular · Amazon S3 · Amazon CloudFront · DNS · HTTPS
+**Author:** Diego Sommier  
+**Focus:** Cloud Computing · AWS · Infrastructure  
+**Year:** 2026
